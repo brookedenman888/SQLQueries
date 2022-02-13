@@ -1,1 +1,1 @@
-# SQLQueries
+# SQL_Project
