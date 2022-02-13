@@ -16,6 +16,7 @@ the main questions they’d like to answer:
 ● Where are customers with a high lifetime value based?
 ● Do sales figures vary between geographic regions?
 ## Sources
-[Rockbuster Data Set](http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip)
-In this Achievement, you’ll be using a data set that contains information about Rockbuster’s
+In this Achievement, I'll be using a data set that contains information about Rockbuster’s
 film inventory, customers, and payments, among other things.
+
+[Rockbuster Data Set](http://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip)
