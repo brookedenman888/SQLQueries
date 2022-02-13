@@ -1,0 +1,57 @@
+#Descriptive statistics for certain categories 
+
+SELECT MIN(release_year) AS min_release_year, 
+MAX(release_year) AS max_release_year, 
+AVG(release_year) AS avg_release_year, 
+MIN(rental_duration) AS min_rental_duration, 
+MAX(rental_duration) AS max_rental_duration, 
+AVG(rental_duration) AS avg_rental_duration, 
+MIN(rental_rate) AS min_rental_rate, 
+MAX(rental_rate) AS max_rental_rate, 
+AVG(rental_rate) AS avg_rental_rate, 
+MIN(length) AS min_length, 
+MAX(length) AS max_length, 
+AVG(length) AS avg_length, 
+MIN(replacement_cost) AS min_replacement_cost, 
+MAX(replacement_cost) AS max_replacement_cost, 
+AVG(replacement_cost) AS avg_replacement_cost 
+FROM film 
+
+#Total Revenue by Genre
+
+SELECT E.names AS "Genre",
+  SUM(amount) AS "Total Revenue"
+FROM payment A
+INNER JOIN rental B ON A.rental_id = B.rental_id
+INNER JOIN inventory C ON B.inventory_id = C.inventory_id
+INNER JOIN film_category D ON C.film_id = D.film_id
+INNER JOIN category E ON D.category_id = E.category_id
+GROUP BY 1
+GROUP BY 2 DESC
+
+#Total Revenue by Country
+SELECT E.country AS "Country",
+  SUM(amount) AS "Total Revenue"
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+GROUP BY 1
+ORDER BY 2 DESC
+
+#5 Highest Paying Customers in the Top 10 Countries
+
+SELECT A.customer_id, B.first_name, B.last_name, E.country,
+SUM(amount) AS highest_amount_paid
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+WHERE E.country IN ('Japan', 'India', 'China', 'United States',
+                    'Mexico', 'Brazil', 'Russian Federation',
+                    'Philippines', 'Turkey', 'Indonesia')
+GROUP BY A.customer_id, B.first_name, B.last_name, E.country
+ORDER BY highest_amount_paid DESC
+LIMIT 5;
